@@ -5,7 +5,13 @@ import { defineConfig } from "eslint/config";
 import globals from "globals";
 
 export default defineConfig([
-  { files: ["**/*.{js,mjs,cjs,jsx}"] },
+  {
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
+  },
   {
     files: ["**/*.{js,mjs,cjs,jsx}"],
     languageOptions: { globals: globals.browser },
@@ -15,18 +21,12 @@ export default defineConfig([
     plugins: { js },
     extends: ["js/recommended"],
   },
-  {
-    ...pluginReact.configs.flat.recommended,
-    settings: {
-      react: {
-        version: "detect",
-      },
-    },
-  },
-  eslintPluginPrettierRecommended,
+  pluginReact.configs.flat.recommended,
   {
     rules: {
       "react/react-in-jsx-scope": "off",
+      "react/jsx-sort-props": "error",
     },
   },
+  eslintPluginPrettierRecommended,
 ]);
