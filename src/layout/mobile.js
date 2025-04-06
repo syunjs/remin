@@ -1,5 +1,5 @@
 import MenuIcon from "@mui/icons-material/Menu";
-import { AppBar, Drawer, IconButton, Toolbar, Typography } from "@mui/material";
+import { AppBar, Drawer, IconButton, Toolbar } from "@mui/material";
 import { useState } from "react";
 
 import DrawerContent from "./drawer-content";
@@ -7,12 +7,9 @@ import DrawerContent from "./drawer-content";
 export default function MobileLayout() {
   const drawerWidth = 240;
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [isClosing, setIsClosing] = useState(false);
 
   function handleDrawerToggle() {
-    if (!isClosing) {
-      setDrawerOpen(!drawerOpen);
-    }
+    setDrawerOpen(!drawerOpen);
   }
 
   return (

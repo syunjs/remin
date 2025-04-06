@@ -10,6 +10,7 @@ import {
   ListItemText,
   ListSubheader,
 } from "@mui/material";
+import PropTypes from "prop-types";
 import { useState } from "react";
 
 import menu from "../../config/menu";
@@ -30,7 +31,7 @@ export default function DrawerContent() {
           } else {
             return (
               <ListItem dense key={menuItem.path}>
-                <ListItemButton>
+                <ListItemButton selected>
                   <ListItemIcon>{menuItem.icon}</ListItemIcon>
                   <ListItemText primary={menuItem.label} />
                 </ListItemButton>
@@ -76,3 +77,7 @@ function NestedList({ menuItem }) {
     </>
   );
 }
+
+NestedList.propTypes = {
+  menuItem: PropTypes.object.isRequired,
+};

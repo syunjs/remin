@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router";
 
-import Layout from "./layout";
-import Example from "./pages/example/index";
+import Layout from "../src/layout";
+import Example from "../src/pages/example/index";
 
 export default createBrowserRouter([
   {

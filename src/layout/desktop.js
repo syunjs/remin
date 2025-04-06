@@ -1,5 +1,5 @@
 import MenuIcon from "@mui/icons-material/Menu";
-import { AppBar, Drawer, IconButton, Toolbar } from "@mui/material";
+import { AppBar, Box, Drawer, IconButton, Toolbar } from "@mui/material";
 import { useState } from "react";
 
 import DrawerContent from "./drawer-content";
@@ -7,7 +7,7 @@ import DrawerContent from "./drawer-content";
 export default function DesktopLayout() {
   const drawerWidth = 240;
   const [drawerOpen, setDrawerOpen] = useState(true);
-  // const logo = new URL("logo-full.png", import.meta.url);
+  const logoSrc = new URL("logo-full.png", import.meta.url);
 
   return (
     <>
@@ -19,26 +19,13 @@ export default function DesktopLayout() {
         sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
         <Toolbar>
-          {/* <Box
-            sx={{
-              height: 48,
-              display: "flex",
-              alignItems: "center",
-              overflow: "hidden",
-              marginRight: 2,
-            }}
-          >
+          <Box className="flex h-[64px] items-center overflow-hidden">
             <img
               alt="logo"
-              src={logo}
-              style={{
-                height: "auto",
-                width: 120,
-                objectFit: "cover",
-                objectPosition: "center",
-              }}
+              className="mr-[20px] h-[64px] w-[128px] object-cover object-center"
+              src={logoSrc}
             />
-          </Box> */}
+          </Box>
 
           <IconButton
             aria-label="menu"
