@@ -4,7 +4,6 @@ import {
   Box,
   Collapse,
   List,
-  ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
@@ -12,10 +11,23 @@ import {
 } from "@mui/material";
 import PropTypes from "prop-types";
 import { useState } from "react";
+import { useLocation, useNavigate } from "react-router";
 
-import menu from "../../config/menu";
+import menu from "../menu";
 
-export default function DrawerContent() {
+export default function DrawerContent({ closeDrawer }) {
+  const location = useLocation();
+  const pathname = location.pathname;
+  const navigate = useNavigate();
+
+  function navigateTo(path) {
+    navigate(path);
+
+    if (closeDrawer) {
+      closeDrawer();
+    }
+  }
+
   return (
     <Box>
       {menu.map((menuItem) => {
@@ -27,15 +39,34 @@ export default function DrawerContent() {
           );
         } else {
           if (menuItem.children) {
-            return <NestedList key={menuItem.path} menuItem={menuItem} />;
+            return (
+              <NestedList
+                key={menuItem.path}
+                menuItem={menuItem}
+                navigateTo={navigateTo}
+              />
+            );
           } else {
             return (
-              <ListItem dense key={menuItem.path}>
-                <ListItemButton selected>
-                  <ListItemIcon>{menuItem.icon}</ListItemIcon>
-                  <ListItemText primary={menuItem.label} />
-                </ListItemButton>
-              </ListItem>
+              <ListItemButton
+                key={menuItem.path}
+                onClick={() => navigateTo(menuItem.path)}
+                selected={pathname === "/" + menuItem.path}
+                sx={{
+                  "&.Mui-selected": {
+                    "& .MuiListItemIcon-root": {
+                      color: "primary.main",
+                    },
+                    "& .MuiListItemText-primary": {
+                      color: "primary.main",
+                      fontWeight: 500,
+                    },
+                  },
+                }}
+              >
+                <ListItemIcon>{menuItem.icon}</ListItemIcon>
+                <ListItemText primary={menuItem.label} />
+              </ListItemButton>
             );
           }
         }
@@ -44,8 +75,15 @@ export default function DrawerContent() {
   );
 }
 
-function NestedList({ menuItem }) {
-  const [open, setOpen] = useState(false);
+function NestedList({ menuItem, navigateTo }) {
+  const location = useLocation();
+  const pathname = location.pathname;
+
+  const isSelected = menuItem.children.some(
+    (child) => pathname === "/" + menuItem.path + "/" + child.path,
+  );
+
+  const [open, setOpen] = useState(isSelected);
 
   function handleClick() {
     setOpen(!open);
@@ -53,23 +91,51 @@ function NestedList({ menuItem }) {
 
   return (
     <>
-      <ListItem dense>
-        <ListItemButton onClick={handleClick}>
-          <ListItemIcon>{menuItem.icon}</ListItemIcon>
-          <ListItemText primary={menuItem.label} />
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
-      </ListItem>
+      <ListItemButton
+        onClick={handleClick}
+        selected={pathname.split("/")[1] === menuItem.path}
+        sx={{
+          "&.Mui-selected": {
+            "& .MuiListItemIcon-root": {
+              color: "primary.main",
+            },
+            "& .MuiListItemText-primary": {
+              color: "primary.main",
+              fontWeight: 500,
+            },
+          },
+        }}
+      >
+        <ListItemIcon>{menuItem.icon}</ListItemIcon>
+        <ListItemText primary={menuItem.label} />
+        {open ? <ExpandLess /> : <ExpandMore />}
+      </ListItemButton>
 
       <Collapse in={open}>
-        <List component="div" dense>
+        <List disablePadding>
           {menuItem.children.map((item) => {
             return (
-              <ListItem key={item.path}>
-                <ListItemButton sx={{ paddingLeft: "40px" }}>
-                  <ListItemText primary={item.label} />
-                </ListItemButton>
-              </ListItem>
+              <ListItemButton
+                key={item.path}
+                onClick={() =>
+                  navigateTo("/" + menuItem.path + "/" + item.path)
+                }
+                selected={pathname === "/" + menuItem.path + "/" + item.path}
+                sx={{
+                  paddingLeft: "40px",
+                  "&.Mui-selected": {
+                    "& .MuiListItemIcon-root": {
+                      color: "primary.main",
+                    },
+                    "& .MuiListItemText-primary": {
+                      color: "primary.main",
+                      fontWeight: 500,
+                    },
+                  },
+                }}
+              >
+                <ListItemText primary={item.label} />
+              </ListItemButton>
             );
           })}
         </List>
@@ -78,6 +144,11 @@ function NestedList({ menuItem }) {
   );
 }
 
+DrawerContent.propTypes = {
+  closeDrawer: PropTypes.func.isRequired,
+};
+
 NestedList.propTypes = {
   menuItem: PropTypes.object.isRequired,
+  navigateTo: PropTypes.func.isRequired,
 };

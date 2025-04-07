@@ -5,8 +5,8 @@ import "@fontsource/roboto/700.css";
 import CssBaseline from "@mui/material/CssBaseline";
 import { RouterProvider } from "react-router";
 
-import router from "../config/routes";
 import "./app.css";
+import router from "./routes";
 
 export function App() {
   return (

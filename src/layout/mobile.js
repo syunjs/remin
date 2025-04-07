@@ -1,6 +1,7 @@
 import MenuIcon from "@mui/icons-material/Menu";
-import { AppBar, Drawer, IconButton, Toolbar } from "@mui/material";
+import { AppBar, Box, Drawer, IconButton, Toolbar } from "@mui/material";
 import { useState } from "react";
+import { Outlet } from "react-router";
 
 import DrawerContent from "./drawer-content";
 
@@ -13,7 +14,7 @@ export default function MobileLayout() {
   }
 
   return (
-    <>
+    <Box className="flex h-screen">
       <AppBar color="white" elevation={0} position="fixed">
         <Toolbar>
           <IconButton
@@ -28,21 +29,31 @@ export default function MobileLayout() {
         </Toolbar>
       </AppBar>
 
-      <Drawer
-        onClose={handleDrawerToggle}
-        open={drawerOpen}
-        slotProps={{
-          root: {
-            keepMounted: true, // Better open performance on mobile.
-          },
-        }}
-        sx={{
-          "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
-        }}
-        variant="temporary"
-      >
-        <DrawerContent />
-      </Drawer>
-    </>
+      <Box component="nav">
+        <Drawer
+          onClose={handleDrawerToggle}
+          open={drawerOpen}
+          slotProps={{
+            root: {
+              keepMounted: true, // Better open performance on mobile.
+            },
+          }}
+          sx={{
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
+          }}
+          variant="temporary"
+        >
+          <DrawerContent closeDrawer={() => setDrawerOpen(false)} />
+        </Drawer>
+      </Box>
+
+      <Box className="grow p-[20px]" component="main">
+        <Toolbar />
+        <Outlet />
+      </Box>
+    </Box>
   );
 }

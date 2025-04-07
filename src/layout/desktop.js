@@ -1,6 +1,7 @@
 import MenuIcon from "@mui/icons-material/Menu";
 import { AppBar, Box, Drawer, IconButton, Toolbar } from "@mui/material";
 import { useState } from "react";
+import { Outlet } from "react-router";
 
 import DrawerContent from "./drawer-content";
 
@@ -10,7 +11,7 @@ export default function DesktopLayout() {
   const logoSrc = new URL("logo-full.png", import.meta.url);
 
   return (
-    <>
+    <Box className="flex h-screen">
       <AppBar
         color="white"
         elevation={0}
@@ -42,7 +43,7 @@ export default function DesktopLayout() {
       <Drawer
         open={drawerOpen}
         sx={{
-          width: drawerWidth,
+          width: drawerOpen ? drawerWidth : 0,
           flexShrink: 0,
           [`& .MuiDrawer-paper`]: {
             width: drawerWidth,
@@ -54,6 +55,11 @@ export default function DesktopLayout() {
         <Toolbar></Toolbar>
         <DrawerContent></DrawerContent>
       </Drawer>
-    </>
+
+      <Box className="grow p-[20px]" component="main">
+        <Toolbar />
+        <Outlet />
+      </Box>
+    </Box>
   );
 }
