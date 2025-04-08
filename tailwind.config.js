@@ -1,6 +1,6 @@
 export default {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
-  important: "#root",
+  important: true,
   theme: {
     extend: {},
   },
