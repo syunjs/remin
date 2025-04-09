@@ -3,3 +3,6 @@ build
 coverage
 dist
 node_modules
+
+# Ignore this file because Prettier does not support Tailwind's @config directive
+src/app.css
