@@ -5,6 +5,7 @@
   "scripts": {
     "start": "parcel",
     "build": "parcel build",
+    "serve": "parcel build; serve -s dist",
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
     "format": "prettier --write src",
     "format:check": "prettier --check src",
@@ -23,7 +24,8 @@
     "lint-staged": "^15.5.0",
     "parcel": "^2.14.4",
     "prettier": "3.5.3",
-    "prettier-plugin-tailwindcss": "^0.6.11"
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "serve": "^14.2.4"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
