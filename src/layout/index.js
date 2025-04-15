@@ -23,7 +23,7 @@ export default function Layout() {
   }
 
   return (
-    <Box className="flex h-screen">
+    <Box className="flex h-screen overflow-auto">
       <Header drawerOpen={drawerOpen} toggleDrawer={toggleDrawer}></Header>
 
       <SideDrawer
@@ -32,9 +32,14 @@ export default function Layout() {
         isMobile={isMobile}
       ></SideDrawer>
 
-      <Box className="grow p-[20px]" component="main">
+      <Box
+        className="flex grow flex-col overflow-auto p-[20px]"
+        component="main"
+      >
         <Toolbar />
-        <Outlet />
+        <Box className="grow overflow-auto">
+          <Outlet />
+        </Box>
       </Box>
     </Box>
   );

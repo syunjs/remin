@@ -13,8 +13,13 @@ export default [
     subheader: "Data table and form",
   },
   {
-    path: "data-table",
-    label: "Data table",
+    path: "full-data-grid",
+    label: "Full data grid",
+    icon: <TableChartIcon />,
+  },
+  {
+    path: "server-paginated-grid",
+    label: "Server paginated grid",
     icon: <TableChartIcon />,
   },
   {

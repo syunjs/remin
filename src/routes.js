@@ -3,9 +3,10 @@ import { createBrowserRouter } from "react-router";
 import Layout from "./layout";
 import CustomerList from "./pages/crm/customer-list";
 import CustomForm from "./pages/custom-form";
-import DataTable from "./pages/data-table";
 import Default from "./pages/default";
+import FullDataGrid from "./pages/full-data-grid";
 import NotFound from "./pages/not-found";
+import ServerPaginatedGrid from "./pages/server-paginated-grid";
 
 export default createBrowserRouter([
   {
@@ -15,9 +16,14 @@ export default createBrowserRouter([
         index: true,
         Component: Default,
       },
+
       {
-        path: "data-table",
-        Component: DataTable,
+        path: "full-data-grid",
+        Component: FullDataGrid,
+      },
+      {
+        path: "server-paginated-grid",
+        Component: ServerPaginatedGrid,
       },
       {
         path: "custom-form",
