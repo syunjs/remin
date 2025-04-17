@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { useMemo, useState } from "react";
 
 import Pagination from "./pagination";
+import DataGridToolbar from "./toolbar";
 
 export default function FullDataGrid({
   columnDefs,
@@ -28,6 +29,12 @@ export default function FullDataGrid({
 
   return (
     <Box>
+      <DataGridToolbar
+        columnDefs={columnDefs}
+        isServerPaginated={false}
+        rowData={fullRowData}
+      />
+
       <AgGridReact
         autoSizeStrategy={autoSizeStrategy}
         columnDefs={columnDefs}
